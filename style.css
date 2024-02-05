@@ -1,3 +1,5 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 .style_root__Rm4q- {
   max-width: 430px;
   padding: 15px;
@@ -9113,6 +9115,52 @@ body {
   margin-bottom: 0;
   width: 40%
 }
+.style_transition__LyA9E {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 4vh auto 0;
+  max-width: 430px
+}
+
+.style_transition__title__jNsEG {
+  padding: 25px 10px
+}
+
+@media(max-height: 700px) {
+  .style_transition__title__jNsEG {
+      font-size:1.5rem;
+      padding: 10px 0
+  }
+}
+
+.style_transition__bottomText__MgWhU,.style_transition__subTitle__SRHVq {
+  color: hsla(0,0%,100%,.85);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.4375rem;
+  text-align: center;
+  width: 85%
+}
+
+@media(max-height: 700px) {
+  .style_transition__bottomText__MgWhU,.style_transition__subTitle__SRHVq {
+      font-size:1rem
+  }
+}
+
+.style_transition__LyA9E .style_button__qXm9K {
+  bottom: 10%;
+  position: absolute
+}
+
+.style_transition__image__C1RKy {
+  margin: 20px 0;
+  max-width: 100%
+}
+
+/*# sourceMappingURL=8654.6e752360.chunk.css.map*/
 
 
 

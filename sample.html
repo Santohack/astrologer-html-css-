@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Add your styling here */
+    .style_active__7uaXP {
+      background-color: #00f; /* Example background color for selected items */
+      color: #fff; /* Example text color for selected items */
+    }
+  </style>
+  <title>Multiple Selection Example</title>
+</head>
+<body>
+
+<div class="style_fade-wrap__color-content__s0Du6">
+  <ul class="style_answers-list__nvn1K style_answers-list_mini__SgrSG">
+    <li>
+      <button id="Family_harmony_container" class="selectable-button style_mini-rectangle__b-yal style_dark__LjBjR" type="button">
+        <div class="style_button__xQnQd">
+          ❤
+          <div class="style_description__LOzul">
+            <h3 id="Family_harmony_title" class="style_title__BSEOj">Family harmony</h3>
+          </div>
+        </div>
+      </button>
+    </li>
+    <!-- Add other list items here... -->
+  </ul>
+</div>
+
+<script>
+  // JavaScript to handle button click and toggle selected status
+  const buttons = document.querySelectorAll('.selectable-button');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      button.classList.toggle('style_active__7uaXP');
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,4 +1,20 @@
 
+var maxSelection = 3;
+var selectedCount = 0;
+function handleButtonClick(buttonId) {
+  var button = document.getElementById(buttonId);
+  if (button.classList.contains('style_active__7uaXP')) {
+    selectedCount--;
+  } else if (selectedCount < maxSelection) {
+    selectedCount++;
+  } else {
+    return; // Maximum selection limit reached
+  }
+  // Toggle the active class on the clicked button
+  button.classList.toggle('style_active__7uaXP');
+  var countElement = document.getElementById('selected_count');
+  countElement.textContent = selectedCount + ' / ' + maxSelection;
+}
 function redirectToBirthdayPage() {
   window.location.href = "birthday.html";
 }

@@ -142,15 +142,31 @@
     color: rgba(0, 0, 0, 1);
     cursor: ns-resize;
   }
-  
+  #monthpicker1,
+  #datepicker1,
+  #yearpicker1 {
+    width: 110px;
+    height: 50px;
+    /*background: var(--pickercolor);*/
+    border-radius: 10px 0 0 10px;
+    text-align: center;
+    line-height: 50px;
+    color: rgba(0, 0, 0, 1);
+    cursor: ns-resize;
+  }
   #datepicker {
+    width: 50px;
+  }
+  #datepicker1 {
     width: 50px;
   }
   
   #yearpicker {
     width: 60px;
   }
-  
+  #yearpicker1 {
+    width: 60px;
+  }
   .buttone {
     background: none;
     grid-column-start: 2;

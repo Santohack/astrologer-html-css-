@@ -15,6 +15,8 @@ function handleButtonClick(buttonId) {
   var countElement = document.getElementById('selected_count');
   countElement.textContent = selectedCount + ' / ' + maxSelection;
 }
+
+
 function redirectToBirthdayPage() {
   window.location.href = "birthday.html";
 }

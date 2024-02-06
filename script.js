@@ -1,20 +1,4 @@
 
-var maxSelection = 3;
-var selectedCount = 0;
-function handleButtonClick(buttonId) {
-  var button = document.getElementById(buttonId);
-  if (button.classList.contains('style_active__7uaXP')) {
-    selectedCount--;
-  } else if (selectedCount < maxSelection) {
-    selectedCount++;
-  } else {
-    return; // Maximum selection limit reached
-  }
-  // Toggle the active class on the clicked button
-  button.classList.toggle('style_active__7uaXP');
-  var countElement = document.getElementById('selected_count');
-  countElement.textContent = selectedCount + ' / ' + maxSelection;
-}
 
 
 // function redirectToBirthdayPage() {
@@ -211,4 +195,111 @@ function redirectTo7thpagePage(selectedStatus) {
   setTimeout(function () {
       window.location.href = '7thpage.html';
   }, 1000); // Adjust the delay as needed
+}
+
+
+
+
+var selectedCount = 0;
+var maxSelection = 3; // Set your maximum selection limit
+
+function handleButtonClick(buttonId) {
+  var button = document.getElementById(buttonId);
+
+  if (button.classList.contains('style_active__7uaXP')) {
+    selectedCount--;
+  } else if (selectedCount < maxSelection) {
+    selectedCount++;
+  } else {
+    return; // Maximum selection limit reached
+  }
+
+  // Toggle the active class on the clicked button
+  button.classList.toggle('style_active__7uaXP');
+
+  var countElement = document.getElementById('selected_count');
+  countElement.textContent = selectedCount + ' / ' + maxSelection;
+
+  // Save the selected buttons in local storage
+  saveSelectedButtons();
+}
+
+function saveSelectedButtons() {
+  var selectedButtons = [];
+
+  // Get all buttons with the active class
+  var activeButtons = document.querySelectorAll('.style_active__7uaXP');
+
+  // Iterate over the active buttons and store their IDs in the selectedButtons array
+  activeButtons.forEach(function (button) {
+    selectedButtons.push(button.id);
+  });
+
+  // Convert the array to JSON string
+  var selectedButtonsJson = JSON.stringify(selectedButtons);
+
+  // Set the JSON string in local storage
+  localStorage.setItem('selectedGoals', selectedButtonsJson);
+}
+
+// Add an event listener to the "Continue" button
+document.querySelector('.style_button__ATdiY').addEventListener('click', function () {
+  // Redirect to the next page (optional)
+  redirectTo8thpagePage();
+});
+
+
+function redirectTo10thpagePage(selectedElement) {
+  // Create an array to store question and answer
+  var qaArray = [
+      { "question": "Which element of nature do you like the best?", "answer": selectedElement }
+  ];
+
+  // Convert the array to JSON string
+  var qaJsonString = JSON.stringify(qaArray);
+
+  // Append the JSON string to the URL
+  var urlWithQa = qaJsonString;
+
+  // Optionally, store the URL in localStorage for later use
+  localStorage.setItem('selectedElement', urlWithQa);
+
+  // Optionally, log the URL for debugging
+  console.log('URL with QA:', urlWithQa);
+
+  // Handle the first redirect to 'birthday.html'
+  window.location.href = '10thpage.html' 
+
+  // Handle the second redirect to another page (e.g., 'anotherpage.html') after a delay
+  setTimeout(function () {
+      window.location.href = '10thpage.html';
+  }, 1000); // Adjust the delay as needed
+}
+
+
+function FinalPage(selectedColors) {
+  // Create an array to store question and answer
+  var qaArray = [
+      { "question": "Which of the following colors do you prefer?", "answer": selectedColors }
+  ];
+
+  // Convert the array to JSON string
+  var qaJsonString = JSON.stringify(qaArray);
+
+  // Append the JSON string to the URL
+  var urlWithQa = qaJsonString;
+
+  // Optionally, store the URL in localStorage for later use
+  localStorage.setItem('selectedColors', urlWithQa);
+
+  // Optionally, log the URL for debugging
+  console.log('URL with QA:', urlWithQa);
+
+  // Handle the first redirect to 'birthday.html'
+  // window.location.href = '10thpage.html' 
+
+  // Handle the second redirect to another page (e.g., 'anotherpage.html') after a delay
+  // setTimeout(function () {
+  //     window.location.href = '10thpage.html';
+  // }, 1000); // Adjust the delay as needed
 }

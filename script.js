@@ -37,13 +37,13 @@ function redirectToBirthdayPage(selectedGender) {
 
   var qaJsonString = JSON.stringify(qaArray);
 
-  var urlWithQa = "https://example.com/&qa=" + qaJsonString;
+  var urlWithQa = qaJsonString;
 
   localStorage.setItem("selectedUrl", urlWithQa);
 
   console.log("URL with QA:", urlWithQa);
 
-  window.location.href = "birthday.html" + urlWithQa;
+  window.location.href = "birthday.html";
 
   setTimeout(function () {
     window.location.href = "birthday.html";
@@ -67,8 +67,8 @@ document.addEventListener("DOMContentLoaded", function () {
         month: selectedMonth,
         year: selectedYear,
       };
-
-      var selectedValuesJson = JSON.stringify(selectedValues);
+      var qaArray = [{ question: " When’s your birthday?", answer: selectedValues }];
+      var selectedValuesJson = JSON.stringify(qaArray);
 
       localStorage.setItem("selectedyear", selectedValuesJson);
 
@@ -93,8 +93,8 @@ document.addEventListener("DOMContentLoaded", function () {
         minute: selectedMinute,
         peariod: selectedpeariod,
       };
-
-      var selectedValuesJson = JSON.stringify(selectedValues);
+      var qaArray = [{ question: " Do you know your birth time?", answer: selectedValues }];
+      var selectedValuesJson = JSON.stringify(qaArray);
 
       localStorage.setItem("selectedtime", selectedValuesJson);
 
@@ -113,8 +113,9 @@ document.addEventListener("DOMContentLoaded", function () {
       var selectedValues = {
         place: selectdplace,
       };
+      var qaArray = [{ question: "Where were you born?", answer: selectedValues }];
 
-      var selectedValuesJson = JSON.stringify(selectedValues);
+      var selectedValuesJson = JSON.stringify(qaArray);
 
       localStorage.setItem("selectedplace", selectedValuesJson);
 
@@ -183,7 +184,14 @@ function saveSelectedButtons() {
     selectedButtons.push(button.id);
   });
 
-  var selectedButtonsJson = JSON.stringify(selectedButtons);
+  var qaArray = [
+    {
+      question: "What are your goals for the future?",
+      answer: selectedButtons,
+    },
+  ];
+
+  var selectedButtonsJson = JSON.stringify(qaArray);
 
   localStorage.setItem("selectedGoals", selectedButtonsJson);
 }
@@ -217,6 +225,8 @@ function redirectTo10thpagePage(selectedElement) {
   }, 1000);
 }
 
+
+
 function FinalPage(selectedColors) {
   var qaArray = [
     {
@@ -232,15 +242,54 @@ function FinalPage(selectedColors) {
   localStorage.setItem("selectedColors", urlWithQa);
 
   console.log("URL with QA:", urlWithQa);
-}
 
-// Retrieve data from local storage
-var storedData = localStorage.getItem("selectedUrl");
+  // Log question and answer from local storage
+  var keysToRetrieve = [
+    "selectedUrl",
+    "selectedtime",
+    "selectedyear",
+    "selectedplace",
+    "selectedStatus",
+    "selectedGoals",
+    "selectedElement",
+    "selectedColors"
+  ];
 
-if (storedData) {
-  var parsedData = storedData;
+  var dataArray = keysToRetrieve.map(function(key) {
+    var storedData = localStorage.getItem(key);
 
-  console.log("Data from local storage:", parsedData);
-} else {
-  console.log("No data found in local storage");
+    if (storedData) {
+      return JSON.parse(storedData)[0]; // Only push the first item (question and answer)
+    } else {
+      console.log("No data found for key:", key);
+      return null;
+    }
+  }).filter(Boolean); // Filter out null values
+
+  console.log("Data array from local storage:", dataArray); 
+  function constructUrl(data) {
+    var url = "http://domainX.com/&qa=\[";
+    
+    data.forEach(function(item, index) {
+      var question =item.question;
+      var answer = JSON.stringify(item.answer);
+  
+      url += '{"question":"' + question + '","answer":"' + answer + '"}';
+      
+      // Add a comma after each item, except for the last one
+      if (index < data.length - 1) {
+        url += ",";
+      }
+    });
+  
+    url += "]";
+    
+    return url;
+  }
+  
+  // Example data array
+  
+  var finalUrl = constructUrl(dataArray);
+  console.log("Final URL:", finalUrl);
+  
 }

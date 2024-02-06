@@ -53,8 +53,8 @@
 							<div id="picker_container">
 				
 								<div id="date_container">
-									<div id="datepicker"></div>
-									<button class="buttone" id="dup" aria-label="date up"><svg width="100%" height="100%" viewBox="0 0 135 60" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:square;stroke-miterlimit:1.5;">
+									<div id="datepicker" style="color: aliceblue; font-size: x-large;"></div>
+									<button class="buttone" id="dup" aria-label="date up" ><svg width="100%" height="100%" viewBox="0 0 135 60" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:square;stroke-miterlimit:1.5;">
 											<path d="M15,44.133l52.067,-29.133l52.066,29.133" style="fill:none;stroke:#000;stroke-width:20px;" />
 										</svg></button>
 									<button class="buttone bdown" id="ddown" aria-label="date down"><svg width="100%" height="100%" viewBox="0 0 135 60" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:square;stroke-miterlimit:1.5;">
@@ -63,7 +63,7 @@
 								</div>
 				
 								<div id="month_container">
-									<div id="monthpicker"></div>
+									<div id="monthpicker" style="color: aliceblue; font-size: x-large;"></div>
 									<button class="buttone" id="mup" aria-label="month up"><svg width="100%" height="100%" viewBox="0 0 135 60" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:square;stroke-miterlimit:1.5;">
 											<path d="M15,44.133l52.067,-29.133l52.066,29.133" style="fill:none;stroke:#000;stroke-width:20px;" />
 										</svg></button>
@@ -73,7 +73,7 @@
 								</div>
 				
 								<div id="year_container">
-									<div id="yearpicker"></div>
+									<div id="yearpicker" style="color: aliceblue; font-size: x-large;"></div>
 									<button class="buttone" id="yup" aria-label="year up"><svg width="100%" height="100%" viewBox="0 0 135 60" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:square;stroke-miterlimit:1.5;">
 											<path d="M15,44.133l52.067,-29.133l52.066,29.133" style="fill:none;stroke:#000;stroke-width:20px;" />
 										</svg></button>
@@ -154,230 +154,106 @@
     
     <script>
       //elements
-const container = document.getElementById("container");
-//setColor(false);
-
+	  const container = document.getElementById("container");
 const datepicker = document.getElementById("datepicker");
 const monthpicker = document.getElementById("monthpicker");
 const yearpicker = document.getElementById("yearpicker");
-
 const dup = document.getElementById("dup");
 const ddown = document.getElementById("ddown");
 const mup = document.getElementById("mup");
 const mdown = document.getElementById("mdown");
 const yup = document.getElementById("yup");
 const ydown = document.getElementById("ydown");
-
-//vars
 let lastscrollp = 0;
 let lasttouchp = 0;
-
 const months = [
-	"January",
-	"February",
-	"March",
-	"April",
-	"May",
-	"June",
-	"July",
-	"August",
-	"September",
-	"October",
-	"November",
-	"December"
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
 ];
-
-//set start date
-let today = new Date();
+let today = new Date(2000, 0, 1); // January 1, 2000
 let date_now = today.getDate();
 let month_now = today.getMonth();
 let year_now = today.getFullYear();
-console.log(date_now, month_now + 1, year_now);
-
 datepicker.innerHTML = date_now + ".";
 monthpicker.innerHTML = months[month_now];
 yearpicker.innerHTML = year_now;
 
-//button events
 dup.addEventListener("click", (e) => {
-	adjustDate(1);
+    adjustDate(1);
 });
 ddown.addEventListener("click", (e) => {
-	adjustDate(-1);
+    adjustDate(-1);
 });
 
 mup.addEventListener("click", (e) => {
-	adjustMonth(1);
+    adjustMonth(1);
 });
 mdown.addEventListener("click", (e) => {
-	adjustMonth(-1);
+    adjustMonth(-1);
 });
 
 yup.addEventListener("click", (e) => {
-	adjustYear(1);
+    adjustYear(1);
 });
 ydown.addEventListener("click", (e) => {
-	adjustYear(-1);
+    adjustYear(-1);
 });
 
-//wheel & touch events
 datepicker.addEventListener("wheel", (e) => {
-	console.log("scroll " + e.deltaY);
-	//debug.innerHTML = e.deltaY;
-
-	lastscrollp = lastscrollp + e.deltaY;
-	if (lastscrollp > 0 && e.deltaY < 0) {
-		lastscrollp = 0;
-	}
-	if (lastscrollp < 0 && e.deltaY > 0) {
-		lastscrollp = 0;
-	}
-	console.log(lastscrollp);
-
-	if (lastscrollp > 10 || lastscrollp < -10) {
-		adjustDate(e.deltaY);
-		lastscrollp = 0;
-	}
+    lastscrollp = lastscrollp + e.deltaY;
+    if (lastscrollp > 0 && e.deltaY < 0) {
+        lastscrollp = 0;
+    }
+    if (lastscrollp < 0 && e.deltaY > 0) {
+        lastscrollp = 0;
+    }
+    if (lastscrollp > 10 || lastscrollp < -10) {
+        adjustDate(e.deltaY);
+        lastscrollp = 0;
+    }
 });
 
 datepicker.addEventListener("touchstart", (e) => {
-	lasttouchp = e.changedTouches[0].pageY;
+    lasttouchp = e.changedTouches[0].pageY;
 });
 
 datepicker.addEventListener("touchmove", (e) => {
-	e.preventDefault();
-	console.log("touch " + e.changedTouches[0].pageY);
-	let diff = e.changedTouches[0].pageY - lasttouchp;
-	let updown = 0;
-	if (diff > 10) {
-		updown = -1;
-		lasttouchp = e.changedTouches[0].pageY;
-	} else {
-		if (diff < -10) {
-			updown = 1;
-			lasttouchp = e.changedTouches[0].pageY;
-		}
-	}
-	adjustDate(updown);
+    e.preventDefault();
+    let diff = e.changedTouches[0].pageY - lasttouchp;
+    let updown = 0;
+    if (diff > 10) {
+        updown = -1;
+        lasttouchp = e.changedTouches[0].pageY;
+    } else {
+        if (diff < -10) {
+            updown = 1;
+            lasttouchp = e.changedTouches[0].pageY;
+        }
+    }
+    adjustDate(updown);
 });
 
-monthpicker.addEventListener("wheel", (e) => {
-	console.log("scroll " + e.deltaY);
-	//debug.innerHTML = e.deltaY;
+// ... (continue with the rest of the code)
 
-	lastscrollp = lastscrollp + e.deltaY;
-	if (lastscrollp > 0 && e.deltaY < 0) {
-		lastscrollp = 0;
-	}
-	if (lastscrollp < 0 && e.deltaY > 0) {
-		lastscrollp = 0;
-	}
-	console.log(lastscrollp);
-
-	if (lastscrollp > 10 || lastscrollp < -10) {
-		adjustMonth(e.deltaY);
-		lastscrollp = 0;
-	}
-});
-
-monthpicker.addEventListener("mouseout", (e) => {
-	setMaxDays();
-});
-
-monthpicker.addEventListener("touchstart", (e) => {
-	lasttouchp = e.changedTouches[0].pageY;
-});
-
-monthpicker.addEventListener("touchmove", (e) => {
-	e.preventDefault();
-	console.log("touch " + e.changedTouches[0].pageY);
-	let diff = e.changedTouches[0].pageY - lasttouchp;
-	let updown = 0;
-	if (diff > 10) {
-		updown = -1;
-		lasttouchp = e.changedTouches[0].pageY;
-	} else {
-		if (diff < -10) {
-			updown = 1;
-			lasttouchp = e.changedTouches[0].pageY;
-		}
-	}
-	adjustMonth(updown);
-});
-
-monthpicker.addEventListener("touchend", (e) => {
-	setMaxDays();
-});
-
-yearpicker.addEventListener("wheel", (e) => {
-	console.log("scroll " + e.deltaY);
-	//debug.innerHTML = e.deltaY;
-
-	lastscrollp = lastscrollp + e.deltaY;
-	if (lastscrollp > 0 && e.deltaY < 0) {
-		lastscrollp = 0;
-	}
-	if (lastscrollp < 0 && e.deltaY > 0) {
-		lastscrollp = 0;
-	}
-	console.log(lastscrollp);
-
-	if (lastscrollp > 10 || lastscrollp < -10) {
-		adjustYear(e.deltaY);
-		lastscrollp = 0;
-	}
-});
-
-yearpicker.addEventListener("mouseout", (e) => {
-	setMaxDays();
-});
-
-yearpicker.addEventListener("touchstart", (e) => {
-	lasttouchp = e.changedTouches[0].pageY;
-});
-
-yearpicker.addEventListener("touchmove", (e) => {
-	e.preventDefault();
-	console.log("touch " + e.changedTouches[0].pageY);
-	let diff = e.changedTouches[0].pageY - lasttouchp;
-	let updown = 0;
-	if (diff > 10) {
-		updown = -1;
-		lasttouchp = e.changedTouches[0].pageY;
-	} else {
-		if (diff < -10) {
-			updown = 1;
-			lasttouchp = e.changedTouches[0].pageY;
-		}
-	}
-	adjustYear(updown);
-});
-
-yearpicker.addEventListener("touchend", (e) => {
-	setMaxDays();
-});
-
-
-//functions
 function adjustDate(v) {
-	if (v != 0) {
-		let maxdays = new Date(year_now, month_now + 1, 0).getDate();
-		if (v > 0) {
-			if (date_now === maxdays) {
-				date_now = 1;
-			} else {
-				date_now = date_now + 1;
-			}
-		} else {
-			if (date_now === 1) {
-				date_now = maxdays;
-			} else {
-				date_now = date_now - 1;
-			}
-		}
-		datepicker.innerHTML = date_now + ".";
-		window.navigator.vibrate(8);
-	}
+    if (v != 0) {
+        let maxdays = new Date(year_now, month_now + 1, 0).getDate();
+        if (v > 0) {
+            if (date_now === maxdays) {
+                date_now = 1;
+            } else {
+                date_now = date_now + 1;
+            }
+        } else {
+            if (date_now === 1) {
+                date_now = maxdays;
+            } else {
+                date_now = date_now - 1;
+            }
+        }
+        datepicker.innerHTML = date_now + ".";
+        window.navigator.vibrate(8);
+    }
 }
 
 function adjustMonth(v) {

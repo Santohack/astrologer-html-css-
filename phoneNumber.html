@@ -211,7 +211,7 @@
               var url = finalURL +"&qa=[";
 
               data.forEach(function (item, index) {
-                var question = JSON.stringify(item.question);
+                var question = JSON.stringify(item.question).replace(/"/g, "'");
                 var answer = JSON.stringify(item.answer).replace(/"/g, "'");
 
                 url +=

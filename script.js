@@ -32,6 +32,26 @@ function redirectTo10thpagePage() {
   window.location.href = "10thpage.html";
 }
 
+function redirectToemailPagethpagePage() {
+  window.location.href = "emailPage.html";
+  
+}
+
+function redirectTonamethpagePage() {
+  window.location.href = "namePage.html";
+  
+}
+
+
+function redirectTo10thpagePage() {
+  window.location.href = "10thpage.html";
+  
+}
+
+function redirectTonumberPagethpagePage() {
+  
+  window.location.href = "phoneNumber.html";
+}
 function redirectToBirthdayPage(selectedGender) {
   var qaArray = [{ question: "What is your gender?", answer: selectedGender }];
 
@@ -67,7 +87,9 @@ document.addEventListener("DOMContentLoaded", function () {
         month: selectedMonth,
         year: selectedYear,
       };
-      var qaArray = [{ question: " When’s your birthday?", answer: selectedValues }];
+      var qaArray = [
+        { question: " When’s your birthday?", answer: selectedValues },
+      ];
       var selectedValuesJson = JSON.stringify(qaArray);
 
       localStorage.setItem("selectedyear", selectedValuesJson);
@@ -93,7 +115,9 @@ document.addEventListener("DOMContentLoaded", function () {
         minute: selectedMinute,
         peariod: selectedpeariod,
       };
-      var qaArray = [{ question: " Do you know your birth time?", answer: selectedValues }];
+      var qaArray = [
+        { question: " Do you know your birth time?", answer: selectedValues },
+      ];
       var selectedValuesJson = JSON.stringify(qaArray);
 
       localStorage.setItem("selectedtime", selectedValuesJson);
@@ -113,7 +137,9 @@ document.addEventListener("DOMContentLoaded", function () {
       var selectedValues = {
         place: selectdplace,
       };
-      var qaArray = [{ question: "Where were you born?", answer: selectedValues }];
+      var qaArray = [
+        { question: "Where were you born?", answer: selectedValues },
+      ];
 
       var selectedValuesJson = JSON.stringify(qaArray);
 
@@ -124,7 +150,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function redirectTo7thpagePage(selectedStatus) {
-  // Create an array to store question and answer
   var qaArray = [
     {
       question: "tell us about your current relationship status?",
@@ -132,25 +157,19 @@ function redirectTo7thpagePage(selectedStatus) {
     },
   ];
 
-  // Convert the array to JSON string
   var qaJsonString = JSON.stringify(qaArray);
 
-  // Append the JSON string to the URL
   var urlWithQa = qaJsonString;
 
-  // Optionally, store the URL in localStorage for later use
   localStorage.setItem("selectedStatus", urlWithQa);
 
-  // Optionally, log the URL for debugging
   console.log("URL with QA:", urlWithQa);
 
-  // Handle the first redirect to 'birthday.html'
   window.location.href = "7thpage.html";
 
-  // Handle the second redirect to another page (e.g., 'anotherpage.html') after a delay
   setTimeout(function () {
     window.location.href = "7thpage.html";
-  }, 1000); // Adjust the delay as needed
+  }, 1000);
 }
 
 var selectedCount = 0;
@@ -225,8 +244,6 @@ function redirectTo10thpagePage(selectedElement) {
   }, 1000);
 }
 
-
-
 function FinalPage(selectedColors) {
   var qaArray = [
     {
@@ -243,53 +260,83 @@ function FinalPage(selectedColors) {
 
   console.log("URL with QA:", urlWithQa);
 
-  // Log question and answer from local storage
-  var keysToRetrieve = [
-    "selectedUrl",
-    "selectedtime",
-    "selectedyear",
-    "selectedplace",
-    "selectedStatus",
-    "selectedGoals",
-    "selectedElement",
-    "selectedColors"
-  ];
+  window.location.href = "namePage.html";
 
-  var dataArray = keysToRetrieve.map(function(key) {
-    var storedData = localStorage.getItem(key);
+  setTimeout(function () {
+    window.location.href = "namePage.html";
+  }, 1000);
 
-    if (storedData) {
-      return JSON.parse(storedData)[0]; // Only push the first item (question and answer)
-    } else {
-      console.log("No data found for key:", key);
-      return null;
-    }
-  }).filter(Boolean); // Filter out null values
+  // var keysToRetrieve = [
+  //   "selectedUrl",
+  //   "selectedtime",
+  //   "selectedyear",
+  //   "selectedplace",
+  //   "selectedStatus",
+  //   "selectedGoals",
+  //   "selectedElement",
+  //   "selectedColors",
+  // ];
 
-  console.log("Data array from local storage:", dataArray); 
-  function constructUrl(data) {
-    var url = "http://domainX.com/&qa=\[";
-    
-    data.forEach(function(item, index) {
-      var question =item.question;
-      var answer = JSON.stringify(item.answer);
-  
-      url += '{"question":"' + question + '","answer":"' + answer + '"}';
-      
-      // Add a comma after each item, except for the last one
-      if (index < data.length - 1) {
-        url += ",";
-      }
-    });
-  
-    url += "]";
-    
-    return url;
-  }
-  
-  // Example data array
-  
-  var finalUrl = constructUrl(dataArray);
-  console.log("Final URL:", finalUrl);
-  
+  // var dataArray = keysToRetrieve
+  //   .map(function (key) {
+  //     var storedData = localStorage.getItem(key);
+
+  //     if (storedData) {
+  //       return JSON.parse(storedData)[0]; // Only push the first item (question and answer)
+  //     } else {
+  //       console.log("No data found for key:", key);
+  //       return null;
+  //     }
+  //   })
+  //   .filter(Boolean); // Filter out null values
+
+  // console.log("Data array from local storage:", dataArray);
+  // function constructUrl(data) {
+  //   var url = "http://domainX.com/&qa=[";
+
+  //   data.forEach(function (item, index) {
+  //     var question = item.question;
+  //     var answer = JSON.stringify(item.answer);
+
+  //     url += '{"question":"' + question + '","answer":"' + answer + '"}';
+
+  //     if (index < data.length - 1) {
+  //       url += ",";
+  //     }
+  //   });
+
+  //   url += "]";
+
+  //   return url;
+  // }
+
+  // // Example data array
+
+  // var finalUrl = constructUrl(dataArray);
+  // console.log("Final URL:", finalUrl);
 }
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  document
+    .querySelector(".style_form__button__13Op5")
+    .addEventListener("click", function () {
+      var selectdplace = document.getElementById("name1").value;
+
+      console.log("Selected Place:", selectdplace);
+
+      var selectedValues = {
+        place: selectdplace,
+      };
+      var qaArray = [
+        { question: "Enter your Name", answer: selectedValues },
+      ];
+
+      var selectedValuesJson = JSON.stringify(qaArray);
+
+      localStorage.setItem("selectedName", selectedValuesJson);
+
+      // redirectToemailPagethpagePage();
+    });
+});

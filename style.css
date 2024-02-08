@@ -9377,7 +9377,32 @@ body {
   max-width: 100%
 }
 
-/*# sourceMappingURL=8654.6e752360.chunk.css.map*/
 
+/* Default styles for non-mobile devices */
+.email-css {
+  height: 660px;
+ margin:  125px;
+}
 
+/* Media query for mobile devices */
+@media only screen and (max-width: 768px) {
+  .email-css {
+    height: 740px;
+    background-color: #07bc0c; /* Adjust the height or any other properties for mobile devices */
+  }
+}
 
+.border-email{
+  background: transparent;
+  border: none; /* Remove all borders */
+  border-bottom: 1px solid #27baa7; /* Add bottom border */
+  border-radius: 0; /* Remove border-radius */
+  box-sizing: border-box;
+  color: #fff;
+  font-family: Open Sans, sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  margin: 0 auto;
+  padding: 15px 25px;
+  width: 100%;
+}

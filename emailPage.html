@@ -6,12 +6,13 @@
     <link rel="stylesheet" href="style.css" />
     <script src="script.js"></script>
     <title>Astroline</title>
+   
   </head>
-  <body style="background-color: #1e3b48">
+  <body>
     <div class="style_wrapper__hdxt9 progressbar-enter-done">
       <div class="style_progress__ym3Ja">
         <div class="style_container__2SlEL">
-          <button type="button" onclick="redirectToBirthtimePage()">
+          <button type="button" onclick="redirectTonamethpagePage()">
             <svg
               width="21"
               height="13"
@@ -23,31 +24,48 @@
               ></path>
             </svg>
           </button>
-          <h1 class="style_title_h1__drby6 style_title__rDZ8H">Astroline</h1>
-          <p class="style_text__5JYBx style_counter__lpxxh">4/10</p>
-        </div>
-        <div class="style_line__9VJjG">
-          <span class="style_feeling__JPd4P" style="width: 40%"></span>
         </div>
       </div>
     </div>
 
     <!-- progressbar -->
-    <div class="style_birth__f+7Ci">
-      <h1 class="style_title_h1__drby6 style_birth__title__e9yDR">
-        Where were you born?
+    <div class="style_birth__f+7Ci" style="height: 660px">
+      <h1
+        class="style_title_h1__drby6 style_birth__title__e9yDR"
+        style="
+          font-size: 38px;
+          line-height: 42px;
+          color: rgb(242, 230, 196);
+          text-align: center;
+          font-weight: 700;
+          font-family: Philosopher;
+        "
+      >
+        Enter your email
       </h1>
-      <p class="style_text__5JYBx style_birth__text__ReUao">
-        The place is important to explore your core personality traits, needs,
-        and desires
+      <p
+        class="style_text__5JYBx style_birth__text__ReUao"
+        style="
+          font-size: 15px;
+          line-height: 25px;
+          color: rgb(208, 184, 148);
+          margin-top: 14.2939px;
+          text-align: center;
+          font-weight: 400;
+          padding-right: 10.4667px;
+          padding-left: 10.4667px;
+          font-family: 'Open Sans';
+        "
+      >
+        We need it to look up your account.
       </p>
       <div class="style_form__TG9rn">
         <div class="style_wrapper__zL8LD style_wrap__JK7KD">
           <input
-            class="style_input__CzcOK style_input__cz8gI style_form__picker__mxQ0d"
-            placeholder="Your birthplace"
+            class="style_input__CzcOK style_input__cz8gI style_form__picker__mxQ0d border-email"
+            placeholder="example@gmail.com"
             value=""
-            id="birthplace"
+            id="email1"
           />
         </div>
         <button
@@ -108,5 +126,29 @@
         </button>
       </div>
     </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+  document
+    .querySelector(".style_form__button__13Op5")
+    .addEventListener("click", function () {
+      var selectdplace = document.getElementById("email1").value;
+
+      console.log("Selected email:", selectdplace);
+
+      var selectedValues = {
+        email: selectdplace,
+      };
+      var qaArray = [
+        { question: "Enter your Email", answer: selectedValues },
+      ];
+
+      var selectedValuesJson = JSON.stringify(qaArray);
+
+      localStorage.setItem("selectedEmail", selectedValuesJson);
+
+      redirectTonumberPagethpagePage();
+    });
+});
+    </script>
   </body>
 </html>

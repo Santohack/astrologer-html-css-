@@ -70,7 +70,6 @@
         <button
           type="submit"
           class="style_button__ATdiY style_form__button__13Op5"
-         
         >
           <div class="style_button__title__q-1y-"><span>Continue</span></div>
           <svg
@@ -144,10 +143,46 @@
             var selectedValuesJson = JSON.stringify(qaArray);
 
             localStorage.setItem("selectedphonenumber", selectedValuesJson);
-            var keysToRetrieve = [
+
+            var keyname = [
               "selectedName",
               "selectedEmail",
               "selectedphonenumber",
+            ];
+
+            var dataName = keyname
+              .map(function (key) {
+                var storedData = localStorage.getItem(key);
+
+                if (storedData) {
+                  return JSON.parse(storedData)[0]; // Only push the first item (question and answer)
+                } else {
+                  console.log("No data found for key:", key);
+                  return null;
+                }
+              })
+              .filter(Boolean); // Filter out null values
+
+            console.log("Data array :", dataName);
+            function convertToURLParams(data) {
+              var params = data.map(function (item) {
+                var question = encodeURIComponent(item.question);
+                var answerKey = Object.keys(item.answer)[0];
+                var answerValue = encodeURIComponent(item.answer[answerKey]);
+                return `${answerKey}=${answerValue}`;
+              });
+              return params.join("&");
+            }
+
+            // Create the URL parameters
+            var urlParams = convertToURLParams(dataName);
+
+            // Construct the final URL
+            var finalURL = `http://domainX.com/?${urlParams}`;
+
+            console.log("Final URL:", finalURL);
+
+            var keysToRetrieve = [
               "selectedUrl",
               "selectedtime",
               "selectedyear",
@@ -173,7 +208,7 @@
 
             console.log("Data array from local storage:", dataArray);
             function constructUrl(data) {
-              var url = "http://domainX.com/&qa=[";
+              var url = finalURL +"&qa=[";
 
               data.forEach(function (item, index) {
                 var question = item.question;
@@ -194,9 +229,9 @@
 
             // Example data array
 
-            var finalUrl = constructUrl(dataArray);
-            console.log("Final URL:", finalUrl);
-            window.location.href = finalUrl;
+            var finalUrlDomail = constructUrl(dataArray);
+            console.log("Final URL:", finalUrlDomail);
+             window.location.href = finalUrlDomail;
           });
       });
     </script>

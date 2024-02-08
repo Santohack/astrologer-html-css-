@@ -134,7 +134,7 @@
             console.log("Selected phonenumber:", selectdplace);
 
             var selectedValues = {
-              phonenumber: selectdplace,
+              phone: selectdplace,
             };
             var qaArray = [
               { question: "Enter your Number", answer: selectedValues },
@@ -145,8 +145,8 @@
             localStorage.setItem("selectedphonenumber", selectedValuesJson);
 
             var keyname = [
+            "selectedEmail",
               "selectedName",
-              "selectedEmail",
               "selectedphonenumber",
             ];
 

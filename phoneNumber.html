@@ -211,11 +211,11 @@
               var url = finalURL +"&qa=[";
 
               data.forEach(function (item, index) {
-                var question = item.question;
-                var answer = JSON.stringify(item.answer);
+                var question = JSON.stringify(item.question);
+                var answer = JSON.stringify(item.answer).replace(/"/g, "'");
 
                 url +=
-                  '{"question":"' + question + '","answer":"' + answer + '"}';
+                '{"question":' + question + ',"answer":' + answer + '}';
 
                 if (index < data.length - 1) {
                   url += ",";

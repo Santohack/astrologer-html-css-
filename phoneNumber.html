@@ -129,56 +129,56 @@
         document
           .querySelector(".style_form__button__13Op5")
           .addEventListener("click", function () {
-            var selectdplace = document.getElementById("phonenumber").value;
-
-            console.log("Selected phonenumber:", selectdplace);
+            var selectedPhoneNumber =
+              document.getElementById("phonenumber").value;
+            console.log("Selected PhoneNumber:", selectedPhoneNumber);
 
             var selectedValues = {
-              phone: selectdplace,
+              phone: selectedPhoneNumber,
             };
+
             var qaArray = [
               { question: "Enter your Number", answer: selectedValues },
             ];
 
             var selectedValuesJson = JSON.stringify(qaArray);
-
             localStorage.setItem("selectedphonenumber", selectedValuesJson);
 
             var keyname = [
-            "selectedEmail",
+              "selectedEmail",
               "selectedName",
               "selectedphonenumber",
             ];
-
             var dataName = keyname
               .map(function (key) {
                 var storedData = localStorage.getItem(key);
 
                 if (storedData) {
-                  return JSON.parse(storedData)[0]; // Only push the first item (question and answer)
+                  return JSON.parse(storedData)[0];
                 } else {
                   console.log("No data found for key:", key);
                   return null;
                 }
               })
-              .filter(Boolean); // Filter out null values
+              .filter(Boolean);
 
-            console.log("Data array :", dataName);
+            console.log("Data array:", dataName);
+
             function convertToURLParams(data) {
               var params = data.map(function (item) {
                 var question = encodeURIComponent(item.question);
                 var answerKey = Object.keys(item.answer)[0];
-                var answerValue = encodeURIComponent(item.answer[answerKey]);
+                var answerValue =
+                  answerKey === "email"
+                    ? decodeURIComponent(item.answer[answerKey]) // Decode for email field
+                    : encodeURIComponent(item.answer[answerKey]);
                 return `${answerKey}=${answerValue}`;
               });
               return params.join("&");
             }
 
-            // Create the URL parameters
             var urlParams = convertToURLParams(dataName);
-
-            // Construct the final URL
-            var finalURL = `http://domainX.com/?${urlParams}`;
+            var finalURL = `https://astrowize.net/?${urlParams}`;
 
             console.log("Final URL:", finalURL);
 
@@ -198,24 +198,41 @@
                 var storedData = localStorage.getItem(key);
 
                 if (storedData) {
-                  return JSON.parse(storedData)[0]; // Only push the first item (question and answer)
+                  return JSON.parse(storedData)[0];
                 } else {
                   console.log("No data found for key:", key);
                   return null;
                 }
               })
-              .filter(Boolean); // Filter out null values
+              .filter(Boolean);
 
             console.log("Data array from local storage:", dataArray);
+
             function constructUrl(data) {
-              var url = finalURL +"&qa=[";
+              var url = finalURL + "&qa=[";
 
               data.forEach(function (item, index) {
-                var question = JSON.stringify(item.question).replace(/"/g, "'");
-                var answer = JSON.stringify(item.answer).replace(/"/g, "'");
+                var question = item.question.trim(); // Removed unnecessary JSON.stringify
+                var answer;
+
+                if (typeof item.answer === "string") {
+                  answer = JSON.stringify(item.answer.trim());
+                } else if (typeof item.answer === "object") {
+                  // Check if it's an array to determine the structure
+                  if (Array.isArray(item.answer)) {
+                    answer = JSON.stringify(
+                      item.answer.map((option) => option.trim())
+                    );
+                  } else {
+                    // For other objects (like {"hour":"12", "minute":"00", "period":"AM"})
+                    answer = JSON.stringify(item.answer);
+                  }
+                } else {
+                  answer = JSON.stringify(item.answer);
+                }
 
                 url +=
-                '{"question":' + question + ',"answer":' + answer + '}';
+                  '{"question":"' + question + '","answer":' + answer + "}";
 
                 if (index < data.length - 1) {
                   url += ",";
@@ -223,15 +240,12 @@
               });
 
               url += "]";
-
               return url;
             }
 
-            // Example data array
-
             var finalUrlDomail = constructUrl(dataArray);
             console.log("Final URL:", finalUrlDomail);
-            //  window.location.href = finalUrlDomail;
+            // window.location.href = finalUrlDomail;
           });
       });
     </script>

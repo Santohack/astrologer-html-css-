@@ -174,7 +174,7 @@ let today = new Date(2000, 0, 1); // January 1, 2000
 let date_now = today.getDate();
 let month_now = today.getMonth();
 let year_now = today.getFullYear();
-datepicker.innerHTML = date_now + ".";
+datepicker.innerHTML = date_now;
 monthpicker.innerHTML = months[month_now];
 yearpicker.innerHTML = year_now;
 
@@ -251,7 +251,7 @@ function adjustDate(v) {
                 date_now = date_now - 1;
             }
         }
-        datepicker.innerHTML = date_now + ".";
+        datepicker.innerHTML = date_now;
         window.navigator.vibrate(8);
     }
 }

@@ -34,22 +34,17 @@ function redirectTo10thpagePage() {
 
 function redirectToemailPagethpagePage() {
   window.location.href = "emailPage.html";
-  
 }
 
 function redirectTonamethpagePage() {
   window.location.href = "namePage.html";
-  
 }
-
 
 function redirectTo10thpagePage() {
   window.location.href = "10thpage.html";
-  
 }
 
 function redirectTonumberPagethpagePage() {
-  
   window.location.href = "phoneNumber.html";
 }
 function redirectToBirthdayPage(selectedGender) {
@@ -113,10 +108,10 @@ document.addEventListener("DOMContentLoaded", function () {
       var selectedValues = {
         hour: selectedhour,
         minute: selectedMinute,
-        peariod: selectedpeariod,
+        period: selectedpeariod,
       };
       var qaArray = [
-        { question: " Do you know your birth time?", answer: selectedValues },
+        { question: "Do you know your birth time?", answer: selectedValues },
       ];
       var selectedValuesJson = JSON.stringify(qaArray);
 
@@ -316,8 +311,6 @@ function FinalPage(selectedColors) {
   // console.log("Final URL:", finalUrl);
 }
 
-
-
 document.addEventListener("DOMContentLoaded", function () {
   document
     .querySelector(".style_form__button__13Op5")
@@ -329,9 +322,7 @@ document.addEventListener("DOMContentLoaded", function () {
       var selectedValues = {
         place: selectdplace,
       };
-      var qaArray = [
-        { question: "Enter your Name", answer: selectedValues },
-      ];
+      var qaArray = [{ question: "Enter your Name", answer: selectedValues }];
 
       var selectedValuesJson = JSON.stringify(qaArray);
 
